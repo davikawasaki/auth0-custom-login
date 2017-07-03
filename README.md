@@ -1,6 +1,6 @@
 # Auth0 AngularJS Centralized Login
 
-This sample demonstrates how to add authentication to an AngularJS application using Auth0's Lock widget from the hosted login page. The sample get its dependencies from npm and a small Node.js server is provided to run the application.
+This sample demonstrates how to add authentication to an AngularJS application using WebAuth Auth0.js v8 library from a Custom UI login page. The sample get its dependencies from npm and a small Node.js server is provided to run the application.
 
 ## Getting Started
 
