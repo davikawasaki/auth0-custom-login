@@ -1,0 +1,13 @@
+<h2>Signup with Login</h2>
+<input type="email" class="signup-email" ng-model="vm.email" />
+<input type="password" class="signup-password" ng-model="vm.passwordSignup" />
+<input type="button" class="signup-db" value="Signup" ng-click="vm.signup(vm.email, vm.passwordSignup)" />
+
+<h2>Login</h2>
+<input type="email" class="login-email" ng-model="vm.username" />
+<input type="password" class="login-password" ng-model="vm.passwordLogin" />
+<input type="button" class="login-db" value="Login" ng-click="vm.login(vm.username, vm.passwordLogin)" />
+
+<h2>Login Social</h2>
+<input type="button" class="login-db" value="Facebook" ng-click="vm.loginSocial(0)" />
+<input type="button" class="login-db" value="Google" ng-click="vm.loginSocial(1)" />

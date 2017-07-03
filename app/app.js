@@ -17,7 +17,8 @@
     $stateProvider,
     $locationProvider,
     $urlRouterProvider,
-    angularAuth0Provider
+    angularAuth0Provider,
+    $rootScope
   ) {
 
     $stateProvider
@@ -25,6 +26,12 @@
         url: '/',
         controller: 'HomeController',
         templateUrl: 'app/home/home.html',
+        controllerAs: 'vm'
+      })
+      .state('login', {
+        url: '/login',
+        controller: 'LoginController',
+        templateUrl: 'app/login/login.html',
         controllerAs: 'vm'
       })
       .state('callback', {
@@ -36,11 +43,11 @@
 
     // Initialization for the angular-auth0 library
     angularAuth0Provider.init({
-      clientID: AUTH0_CLIENT_ID,
-      domain: AUTH0_DOMAIN,
+      clientID: {clientID},
+      domain: {clientDomain},
       responseType: 'token id_token',
-      audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
-      redirectUri: AUTH0_CALLBACK_URL,
+      audience: 'https://' + {clientDomain} + '/userinfo',
+      redirectUri: {callbackUri},
       scope: 'openid'
     });
 

@@ -11,30 +11,34 @@
   function authService($state, angularAuth0, $timeout) {
 
     function login() {
-      angularAuth0.authorize();
+      $state.go('login');
+      //angularAuth0.authorize();
     }
     
-    function handleAuthentication() {
-      angularAuth0.parseHash(function(err, authResult) {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          setSession(authResult);
-          $state.go('home');
-        } else if (err) {
-          $timeout(function() {
-            $state.go('home');
-          });
-          console.log(err);
-          alert('Error: ' + err.error + '. Check the console for further details.');
-        }
-      });
+    function handleAuthentication(authResult) {
+      //angularAuth0.parseHash(function(err, authResult) {
+      console.log(authResult)
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        setSession(authResult);
+        $state.go('home');
+      } else {
+        $timeout(function() {
+          $state.go('login');
+        });
+        console.log('Login was not made correct. Try again.');
+        //alert('Error: ' + err.error + '. Check the console for further details.');
+      }
+      //});
     }
 
     function setSession(authResult) {
+      localStorage.clear();
       // Set the time that the access token will expire at
       let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
       localStorage.setItem('access_token', authResult.accessToken);
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', expiresAt);
+      if(authResult.socialType) localStorage.setItem('social_type', authResult.socialType);
     }
     
     function logout() {
@@ -42,7 +46,7 @@
       localStorage.removeItem('access_token');
       localStorage.removeItem('id_token');
       localStorage.removeItem('expires_at');
-      $state.go('home');
+      $state.go('login');
     }
     
     function isAuthenticated() {
